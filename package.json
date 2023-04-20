@@ -2,7 +2,6 @@
   "name": "dto-manager-back",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +15,14 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "typescript": "^5.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jean-campelo/DTO_Manager_back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jean-campelo/DTO_Manager_back/issues"
+  },
+  "homepage": "https://github.com/jean-campelo/DTO_Manager_back#readme",
+  "description": ""
 }
