@@ -1,0 +1,2 @@
+-- CreateEnum
+CREATE TYPE "ConsultStatus" AS ENUM ('REALIZADO', 'CANCELADO', 'REAGENDADO', 'ENCAIXE');
