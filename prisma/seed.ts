@@ -4,30 +4,26 @@ import bcrypt from "bcrypt";
 import dayjs from "dayjs";
 import { generateCPF } from "@brazilian-utils/brazilian-utils";
 
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "../src/config/database";
 
-async function createDoctorFernando() {
-  let doctorNameFernando = await prisma.doctor.findFirst({
+async function createClinicBemEstar() {
+  const clinicAlreadExists = await prisma.user.findFirst({
     where: {
-      email: "fernando_souza@gmail.com",
+      email: "cbe@gmail.com",
     },
   });
 
-  if (!doctorNameFernando) {
-    const passwordHash = await bcrypt.hash("123456", 12);
-
-    await prisma.doctor.create({
+  if (!clinicAlreadExists) {
+    await prisma.user.create({
       data: {
-        name: "Fernando de Souza",
-        email: "fernando_souza@gmail.com",
-        password: passwordHash,
-        CRM: 202020,
+        email: "cbe@gmail.com",
+        password: "123456",
       },
     });
   }
 }
 
+/*
 async function createDoctor() {
   const doctor = await prisma.doctor.create({
     data: {
@@ -39,7 +35,7 @@ async function createDoctor() {
   });
   return doctor;
 }
-
+*/
 async function createPatient() {
   const patient = await prisma.patient.create({
     data: {
@@ -52,7 +48,7 @@ async function createPatient() {
   });
   return patient;
 }
-
+/*
 async function createConsult(
   doctorId: Doctor,
   patientId: Patient,
@@ -63,32 +59,57 @@ async function createConsult(
     data: {
       doctorId: doctorId.id,
       patientId: patientId.id,
-      date: dayjs().add(days, "days").toDate(),
+      startsAt,
+      endsAt,
       status,
     },
   });
 }
-
+*/
 async function main() {
-  await createDoctorFernando();
-
+  await createPatient();
+  /*
   const doctor_01 = await createDoctor();
   const patient_01 = await createPatient();
-  await createConsult(doctor_01, patient_01, ConsultStatus.ENCAIXE, 2);
+  let daysAfterToday = 2;
+  await createConsult(
+    doctor_01,
+    patient_01,
+    ConsultStatus.CANCELADO,
+    daysAfterToday
+  );
 
+  daysAfterToday = 1;
   const doctor_02 = await createDoctor();
   const patient_02 = await createPatient();
-  await createConsult(doctor_02, patient_02, ConsultStatus.CANCELADO, 1);
+  await createConsult(
+    doctor_02,
+    patient_02,
+    ConsultStatus.CANCELADO,
+    daysAfterToday
+  );
 
+  daysAfterToday = 3;
   const doctor_03 = await createDoctor();
   const patient_03 = await createPatient();
-  await createConsult(doctor_03, patient_03, ConsultStatus.REAGENDADO, 3);
+  await createConsult(
+    doctor_03,
+    patient_03,
+    ConsultStatus.CANCELADO,
+    daysAfterToday
+  );
 
+  daysAfterToday = 0;
   const doctor_04 = await createDoctor();
   const patient_04 = await createPatient();
-  await createConsult(doctor_04, patient_04, ConsultStatus.REALIZADO, 0);
+  await createConsult(
+    doctor_04,
+    patient_04,
+    ConsultStatus.REALIZADO,
+    daysAfterToday
+  );
+*/
 }
-
 main()
   .catch((e) => {
     console.error(e);

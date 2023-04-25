@@ -34,34 +34,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-//import { ConsultStatus } from "@prisma/client";
+import { ConsultStatus } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
+import dayjs from "dayjs";
 import { generateCPF } from "@brazilian-utils/brazilian-utils";
-import { PrismaClient } from "@prisma/client";
-var prisma = new PrismaClient();
-function createDoctor() {
+import prisma from "../src/config/database.js";
+function createDoctorFernando() {
     return __awaiter(this, void 0, void 0, function () {
-        var email, testDoctor, passwordHash, cmrValue, doctors;
+        var doctorNameFernando, passwordHash;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    email = "fernando_souza@gmail.com";
-                    return [4 /*yield*/, prisma.doctor.findFirst({
-                            where: {
-                                email: email,
-                            },
-                        })];
+                case 0: return [4 /*yield*/, prisma.doctor.findFirst({
+                        where: {
+                            email: "fernando_souza@gmail.com",
+                        },
+                    })];
                 case 1:
-                    testDoctor = _a.sent();
-                    if (!!testDoctor) return [3 /*break*/, 4];
+                    doctorNameFernando = _a.sent();
+                    if (!!doctorNameFernando) return [3 /*break*/, 4];
                     return [4 /*yield*/, bcrypt.hash("123456", 12)];
                 case 2:
                     passwordHash = _a.sent();
                     return [4 /*yield*/, prisma.doctor.create({
                             data: {
                                 name: "Fernando de Souza",
-                                email: email,
+                                email: "fernando_souza@gmail.com",
                                 password: passwordHash,
                                 CRM: 202020,
                             },
@@ -69,116 +67,66 @@ function createDoctor() {
                 case 3:
                     _a.sent();
                     _a.label = 4;
-                case 4:
-                    cmrValue = 12456;
-                    return [4 /*yield*/, prisma.doctor.createMany({
-                            data: [
-                                {
-                                    name: faker.name.fullName(),
-                                    email: faker.internet.email(),
-                                    password: faker.internet.password(),
-                                    CRM: parseInt((cmrValue * 1.1).toFixed(6)),
-                                },
-                                {
-                                    name: faker.name.fullName(),
-                                    email: faker.internet.email(),
-                                    password: faker.internet.password(),
-                                    CRM: parseInt((cmrValue * 1.2).toFixed(6)),
-                                },
-                                {
-                                    name: faker.name.fullName(),
-                                    email: faker.internet.email(),
-                                    password: faker.internet.password(),
-                                    CRM: parseInt((cmrValue * 1.3).toFixed(6)),
-                                },
-                                {
-                                    name: faker.name.fullName(),
-                                    email: faker.internet.email(),
-                                    password: faker.internet.password(),
-                                    CRM: parseInt((cmrValue * 1.4).toFixed(6)),
-                                },
-                            ],
-                        })];
-                case 5:
-                    doctors = _a.sent();
-                    return [2 /*return*/, doctors];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function createDoctor() {
+    return __awaiter(this, void 0, void 0, function () {
+        var doctor;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, prisma.doctor.create({
+                        data: {
+                            name: faker.name.fullName(),
+                            email: faker.internet.email(),
+                            password: faker.internet.password(),
+                            CRM: parseInt(faker.phone.number("######")),
+                        },
+                    })];
+                case 1:
+                    doctor = _a.sent();
+                    return [2 /*return*/, doctor];
             }
         });
     });
 }
 function createPatient() {
     return __awaiter(this, void 0, void 0, function () {
-        var patients;
+        var patient;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, prisma.patient.createMany({
-                        data: [
-                            {
-                                name: faker.name.fullName(),
-                                CPF: generateCPF(),
-                                gender: faker.name.gender(),
-                                birthday: faker.date.birthdate(),
-                                phone: faker.phone.number("(##) 9####-####"),
-                            },
-                            {
-                                name: faker.name.fullName(),
-                                CPF: generateCPF(),
-                                gender: faker.name.gender(),
-                                birthday: faker.date.birthdate(),
-                                phone: faker.phone.number("(##) 9####-####"),
-                            },
-                            {
-                                name: faker.name.fullName(),
-                                CPF: generateCPF(),
-                                gender: faker.name.gender(),
-                                birthday: faker.date.birthdate(),
-                                phone: faker.phone.number("(##) 9####-####"),
-                            },
-                            {
-                                name: faker.name.fullName(),
-                                CPF: generateCPF(),
-                                gender: faker.name.gender(),
-                                birthday: faker.date.birthdate(),
-                                phone: faker.phone.number("(##) 9####-####"),
-                            },
-                            {
-                                name: faker.name.fullName(),
-                                CPF: generateCPF(),
-                                gender: faker.name.gender(),
-                                birthday: faker.date.birthdate(),
-                                phone: faker.phone.number("(##) 9####-####"),
-                            },
-                            {
-                                name: faker.name.fullName(),
-                                CPF: generateCPF(),
-                                gender: faker.name.gender(),
-                                birthday: faker.date.birthdate(),
-                                phone: faker.phone.number("(##) 9####-####"),
-                            },
-                        ],
+                case 0: return [4 /*yield*/, prisma.patient.create({
+                        data: {
+                            name: faker.name.fullName(),
+                            CPF: generateCPF(),
+                            gender: faker.name.gender(),
+                            birthday: faker.date.birthdate(),
+                            phone: faker.phone.number("(##) 9####-####"),
+                        },
                     })];
                 case 1:
-                    patients = _a.sent();
-                    return [2 /*return*/, patients];
+                    patient = _a.sent();
+                    return [2 /*return*/, patient];
             }
         });
     });
 }
-function createConsult(doctorId, patientId) {
+function createConsult(doctorId, patientId, status, days) {
     return __awaiter(this, void 0, void 0, function () {
-        var consults;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, prisma.consult.create({
                         data: {
-                            doctorId: doctorId,
-                            patientId: patientId,
-                            date: faker.date.future(),
-                            status: "CANCELADO",
+                            doctorId: doctorId.id,
+                            patientId: patientId.id,
+                            date: dayjs().add(days, "days").toDate(),
+                            status: status,
                         },
                     })];
                 case 1:
-                    consults = _a.sent();
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
@@ -186,13 +134,51 @@ function createConsult(doctorId, patientId) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function () {
+        var doctor_01, patient_01, daysAfterToday, doctor_02, patient_02, doctor_03, patient_03, doctor_04, patient_04;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, createDoctor()];
+                case 0: return [4 /*yield*/, createDoctorFernando()];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, createPatient()];
+                    return [4 /*yield*/, createDoctor()];
                 case 2:
+                    doctor_01 = _a.sent();
+                    return [4 /*yield*/, createPatient()];
+                case 3:
+                    patient_01 = _a.sent();
+                    daysAfterToday = 2;
+                    return [4 /*yield*/, createConsult(doctor_01, patient_01, ConsultStatus.ENCAIXE, daysAfterToday)];
+                case 4:
+                    _a.sent();
+                    daysAfterToday = 1;
+                    return [4 /*yield*/, createDoctor()];
+                case 5:
+                    doctor_02 = _a.sent();
+                    return [4 /*yield*/, createPatient()];
+                case 6:
+                    patient_02 = _a.sent();
+                    return [4 /*yield*/, createConsult(doctor_02, patient_02, ConsultStatus.CANCELADO, daysAfterToday)];
+                case 7:
+                    _a.sent();
+                    daysAfterToday = 3;
+                    return [4 /*yield*/, createDoctor()];
+                case 8:
+                    doctor_03 = _a.sent();
+                    return [4 /*yield*/, createPatient()];
+                case 9:
+                    patient_03 = _a.sent();
+                    return [4 /*yield*/, createConsult(doctor_03, patient_03, ConsultStatus.REAGENDADO, daysAfterToday)];
+                case 10:
+                    _a.sent();
+                    daysAfterToday = 0;
+                    return [4 /*yield*/, createDoctor()];
+                case 11:
+                    doctor_04 = _a.sent();
+                    return [4 /*yield*/, createPatient()];
+                case 12:
+                    patient_04 = _a.sent();
+                    return [4 /*yield*/, createConsult(doctor_04, patient_04, ConsultStatus.REALIZADO, daysAfterToday)];
+                case 13:
                     _a.sent();
                     return [2 /*return*/];
             }
