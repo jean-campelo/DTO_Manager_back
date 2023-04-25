@@ -16,18 +16,21 @@ model User {
   password String @unique @db.VarChar(255)
 }
 
-model Specialty {
-  id        Int      @id @default(autoincrement())
-  specialty String   @unique @db.VarChar(255)
-  Doctor    Doctor[]
+enum ListSpecialties {
+  ORTOPEDISTA
+  DERMATOLOGISTA
+  NUTRICIONISTA
+  PSIQUIATRA
+  CARDIOLOGISTA
+  OTORRINOLARINGOLOGISTA
+  CLINICO_GERAL
 }
 
 model Doctor {
-  id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(255)
-  CRM         Int       @unique
-  specialtyId Int
-  Specialty   Specialty @relation(fields: [specialtyId], references: [id])
+  id        Int             @id @default(autoincrement())
+  name      String          @db.VarChar(255)
+  CRM       Int             @unique
+  specialty ListSpecialties
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -35,11 +38,16 @@ model Doctor {
   Consult Consult[]
 }
 
+enum Genders {
+  FEMALE
+  MALE
+}
+
 model Patient {
   id       Int      @id @default(autoincrement())
   name     String   @db.VarChar(255)
   CPF      String   @unique @db.VarChar(255)
-  gender   String   @db.VarChar(255)
+  gender   Genders
   birthday DateTime
   phone    String   @db.VarChar(255)
 
@@ -64,6 +72,7 @@ model Consult {
 }
 
 enum ConsultStatus {
+  AGUARDANDO
   REALIZADO
   CANCELADO
   RETORNO

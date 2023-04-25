@@ -1,10 +1,27 @@
+-- CreateEnum
+CREATE TYPE "ListSpecialties" AS ENUM ('ORTOPEDISTA', 'DERMATOLOGISTA', 'NUTRICIONISTA', 'PSIQUIATRA', 'CARDIOLOGISTA', 'OTORRINOLARINGOLOGISTA', 'CLINICO_GERAL');
+
+-- CreateEnum
+CREATE TYPE "Genders" AS ENUM ('FEMALE', 'MALE');
+
+-- CreateEnum
+CREATE TYPE "ConsultStatus" AS ENUM ('REALIZADO', 'CANCELADO', 'RETORNO');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "email" VARCHAR(255) NOT NULL,
+    "password" VARCHAR(255) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateTable
 CREATE TABLE "Doctor" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "email" VARCHAR(255) NOT NULL,
-    "password" VARCHAR(255) NOT NULL,
     "CRM" INTEGER NOT NULL,
+    "specialty" "ListSpecialties" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -16,7 +33,7 @@ CREATE TABLE "Patient" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "CPF" VARCHAR(255) NOT NULL,
-    "gender" VARCHAR(255) NOT NULL,
+    "gender" "Genders" NOT NULL,
     "birthday" TIMESTAMP(3) NOT NULL,
     "phone" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -30,8 +47,9 @@ CREATE TABLE "Consult" (
     "id" SERIAL NOT NULL,
     "doctorId" INTEGER NOT NULL,
     "patientId" INTEGER NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "status" VARCHAR(255) NOT NULL,
+    "startsAt" TIMESTAMP(3) NOT NULL,
+    "endsAt" TIMESTAMP(3) NOT NULL,
+    "status" "ConsultStatus" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -39,10 +57,10 @@ CREATE TABLE "Consult" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Doctor_email_key" ON "Doctor"("email");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Doctor_password_key" ON "Doctor"("password");
+CREATE UNIQUE INDEX "User_password_key" ON "User"("password");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Doctor_CRM_key" ON "Doctor"("CRM");
