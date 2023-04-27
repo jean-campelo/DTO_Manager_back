@@ -8,9 +8,10 @@ async function getUserByEmail(email: string) {
   });
 }
 
-async function create(email: string, passwordHash: string) {
+async function create(email: string, passwordHash: string, name: string) {
   return prisma.user.create({
     data: {
+      name,
       email,
       password: passwordHash,
     },

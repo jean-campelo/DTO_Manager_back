@@ -4,12 +4,12 @@ import { dataUserEntity } from "../protocols/dataUser.js";
 import httpStatus from "http-status";
 
 async function signUp(req: Request, res: Response) {
-  const { email, password } = req.body as dataUserEntity;
+  const { email, password, name } = req.body as dataUserEntity;
 
   try {
-    const newUser = await userService.registerUser({ email, password });
+    await userService.registerUser({ email, password, name });
 
-    return res.status(httpStatus.CREATED).send({ email: newUser.email });
+    return res.status(httpStatus.CREATED).send({ email, name });
   } catch (error) {
     if (error.name === "DuplicatedRegisterError") {
       return res.status(httpStatus.CONFLICT).send(error);
@@ -23,7 +23,9 @@ async function signIn(req: Request, res: Response) {
 
   try {
     const user = await userService.login({ email, password });
-    return res.status(httpStatus.OK).send({ email: user.email });
+    return res
+      .status(httpStatus.OK)
+      .send({ email: user.email, name: user.name });
   } catch (error) {
     if (error.name === "UnregisteredUser" || "invalidCredentialsError") {
       return res.status(httpStatus.CONFLICT).send(error);
@@ -34,9 +36,9 @@ async function signIn(req: Request, res: Response) {
 
 export type SignInUserParams = Pick<dataUserEntity, "email" | "password">;
 
-const doctorController = {
+const userController = {
   signUp,
   signIn,
 };
 
-export default doctorController;
+export default userController;

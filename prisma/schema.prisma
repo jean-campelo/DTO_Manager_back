@@ -11,9 +11,14 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique @db.VarChar(255)
-  password String @unique @db.VarChar(255)
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(255)
+  email    String    @unique @db.VarChar(255)
+  password String    @unique @db.VarChar(255)
+  Consult  Consult[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum ListSpecialties {
@@ -63,6 +68,8 @@ model Consult {
   Doctor    Doctor        @relation(fields: [doctorId], references: [id])
   patientId Int
   Patient   Patient       @relation(fields: [patientId], references: [id])
+  clinicId  Int
+  User      User          @relation(fields: [clinicId], references: [id])
   startsAt  DateTime
   endsAt    DateTime
   status    ConsultStatus

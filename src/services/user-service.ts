@@ -10,18 +10,19 @@ import { User } from "@prisma/client";
 async function registerUser({
   email,
   password,
+  name,
 }: CreateUserParams): Promise<User> {
   const alreadyRegisteredUser = await userRepository.getUserByEmail(email);
 
   if (alreadyRegisteredUser) throw userAlreadyRegistered();
 
   const passwordHash = await bcrypt.hash(password, 12);
-  const registerNewUser = await userRepository.create(email, passwordHash);
+  const registerNewUser = await userRepository.create(email, passwordHash, name);
 
   return registerNewUser;
 }
 
-async function login({ email, password }: CreateUserParams): Promise<User> {
+async function login({ email, password }: LoginUserParams): Promise<User> {
   const userExists = await userRepository.getUserByEmail(email);
   if (!userExists) throw unregisteredUser();
 
@@ -32,6 +33,8 @@ async function login({ email, password }: CreateUserParams): Promise<User> {
 }
 
 export type CreateUserParams = Omit<User, "id" | "createdAt" | "updatedAt">;
+export type LoginUserParams = Omit<User, "id" | "name" | "createdAt" | "updatedAt">;
+
 
 const doctorService = {
   registerUser,

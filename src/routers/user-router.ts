@@ -1,10 +1,10 @@
 import { Router } from "express";
-import doctorController from "../controllers/user-controller.js";
-import { validateUser } from "../middlewares/userMiddleware.js";
+import userController from "../controllers/user-controller.js";
+import { validateUser, validateNewUser } from "../middlewares/userMiddleware.js";
 
-const DoctorRouter = Router();
+const userRouter = Router();
 
-DoctorRouter.post("/sign-up", validateUser, doctorController.signUp);
-DoctorRouter.post("/sign-in", validateUser,doctorController.signIn);
+userRouter.post("/sign-up", validateNewUser, userController.signUp);
+userRouter.post("/sign-in", validateUser, userController.signIn);
 
-export default DoctorRouter;
+export default userRouter;
