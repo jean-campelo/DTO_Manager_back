@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Consult" ALTER COLUMN "startsAt" SET DATA TYPE TEXT,
+ALTER COLUMN "endsAt" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Patient" ALTER COLUMN "birthday" SET DATA TYPE TEXT;

@@ -61,8 +61,8 @@ async function createPatient(gender: Genders) {
 async function createConsult(
   doctorId: Doctor,
   patientId: Patient,
-  startsAt: Date,
-  endsAt: Date,
+  startsAt: string,
+  endsAt: string,
   status: ConsultStatus,
   clinicId: number
 ) {
@@ -84,8 +84,8 @@ async function createManyConsults(clinicReference: User) {
   //CARDIOLOGISTA
   const CARDIOLOGISTA_01 = await createDoctor(ListSpecialties.CARDIOLOGISTA);
   const patient_01 = await createPatient(Genders.MALE);
-  let startsAt = new Date("2023-05-02T14:00:00-00:00");
-  let endsAt = new Date("2023-05-02T14:45:00-00:00");
+  let startsAt = "2023-04-28 15:00";
+  let endsAt = "2023-04-28 15:40";
   status = ConsultStatus.AGUARDANDO;
   await createConsult(
     CARDIOLOGISTA_01,
@@ -99,8 +99,8 @@ async function createManyConsults(clinicReference: User) {
   //CLINICO_GERAL
   const CLINICO_GERAL_02 = await createDoctor(ListSpecialties.CLINICO_GERAL);
   const patient_02 = await createPatient(Genders.FEMALE);
-  startsAt = new Date("2023-05-02T14:00:00-00:00");
-  endsAt = new Date("2023-05-02T14:45:00-00:00");
+  startsAt = "2023-04-28 11:00";
+  endsAt = "2023-04-28 11:25";
   status = ConsultStatus.AGUARDANDO;
   await createConsult(
     CLINICO_GERAL_02,
@@ -114,9 +114,9 @@ async function createManyConsults(clinicReference: User) {
   //DERMATOLOGISTA
   const DERMATOLOGISTA_03 = await createDoctor(ListSpecialties.DERMATOLOGISTA);
   const patient_03 = await createPatient(Genders.FEMALE);
-  startsAt = new Date("2023-05-02T10:00:00-00:00");
-  endsAt = new Date("2023-05-02T10:30:00-00:00");
-  status = ConsultStatus.AGUARDANDO;
+  startsAt = "2023-04-28 09:40";
+  endsAt = "2023-04-28 10:00";
+  status = ConsultStatus.REALIZADO;
   await createConsult(
     DERMATOLOGISTA_03,
     patient_03,
@@ -127,8 +127,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_13 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T15:00:00-00:00");
-  endsAt = new Date("2023-05-02T15:30:00-00:00");
+  startsAt = "2023-04-29 08:00";
+  endsAt = "2023-04-29 08:30";
   status = ConsultStatus.RETORNO;
   await createConsult(
     DERMATOLOGISTA_03,
@@ -142,9 +142,9 @@ async function createManyConsults(clinicReference: User) {
   //NUTRICIOLISTA
   const NUTRICIONISTA_04 = await createDoctor(ListSpecialties.NUTRICIONISTA);
   const patient_04 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T10:20:00-00:00");
-  endsAt = new Date("2023-05-02T11:00:00-00:00");
-  status = ConsultStatus.AGUARDANDO;
+  startsAt = "2023-04-28 08:00";
+  endsAt = "2023-04-28 08:30";
+  status = ConsultStatus.RETORNO;
   await createConsult(
     NUTRICIONISTA_04,
     patient_04,
@@ -155,8 +155,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_14 = await createPatient(Genders.FEMALE);
-  startsAt = new Date("2023-05-02T11:20:00-00:00");
-  endsAt = new Date("2023-05-02T11:40:00-00:00");
+  startsAt = "2023-04-28 12:00";
+  endsAt = "2023-04-28 12:30";
   status = ConsultStatus.RETORNO;
   await createConsult(
     NUTRICIONISTA_04,
@@ -168,8 +168,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_10 = await createPatient(Genders.FEMALE);
-  startsAt = new Date("2023-05-02T13:00:00-00:00");
-  endsAt = new Date("2023-05-02T13:30:00-00:00");
+  startsAt = "2023-04-29 13:30";
+  endsAt = "2023-04-29 14:00";
   status = ConsultStatus.AGUARDANDO;
   await createConsult(
     NUTRICIONISTA_04,
@@ -185,8 +185,8 @@ async function createManyConsults(clinicReference: User) {
     ListSpecialties.OTORRINOLARINGOLOGISTA
   );
   const patient_05 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T10:15:00-00:00");
-  endsAt = new Date("2023-05-02T10:45:00-00:00");
+  startsAt = "2023-04-29 09:30";
+  endsAt = "2023-04-29 10:00";
   status = ConsultStatus.AGUARDANDO;
   await createConsult(
     OTORRINOLARINGOLOGISTA_05,
@@ -198,8 +198,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_09 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T11:00:00-00:00");
-  endsAt = new Date("2023-05-02T11:30:00-00:00");
+  startsAt = "2023-04-29 10:30";
+  endsAt = "2023-04-29 11:00";
   status = ConsultStatus.AGUARDANDO;
   await createConsult(
     OTORRINOLARINGOLOGISTA_05,
@@ -211,8 +211,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_12 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T15:00:00-00:00");
-  endsAt = new Date("2023-05-02T15:50:00-00:00");
+  startsAt = "2023-04-29 11:00";
+  endsAt = "2023-04-29 11:30";
   status = ConsultStatus.CANCELADO;
   await createConsult(
     OTORRINOLARINGOLOGISTA_05,
@@ -226,9 +226,9 @@ async function createManyConsults(clinicReference: User) {
   //PSIQUIATRA
   const PSIQUIATRA_06 = await createDoctor(ListSpecialties.PSIQUIATRA);
   const patient_06 = await createPatient(Genders.FEMALE);
-  startsAt = new Date("2023-05-02T14:00:00-00:00");
-  endsAt = new Date("2023-05-02T14:50:00-00:00");
-  status = ConsultStatus.AGUARDANDO;
+  startsAt = "2023-04-28 08:30";
+  endsAt = "2023-04-28 09:00";
+  status = ConsultStatus.REALIZADO;
   await createConsult(
     PSIQUIATRA_06,
     patient_06,
@@ -239,9 +239,9 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_07 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T15:00:00-00:00");
-  endsAt = new Date("2023-05-02T15:50:00-00:00");
-  status = ConsultStatus.AGUARDANDO;
+  startsAt = "2023-04-28 14:30";
+  endsAt = "2023-04-28 15:00";
+  status = ConsultStatus.CANCELADO;
   await createConsult(
     PSIQUIATRA_06,
     patient_07,
@@ -252,8 +252,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_08 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T16:00:00-00:00");
-  endsAt = new Date("2023-05-02T16:50:00-00:00");
+  startsAt = "2023-04-29 15:00";
+  endsAt = "2023-04-29 15:30";
   status = ConsultStatus.AGUARDANDO;
   await createConsult(
     PSIQUIATRA_06,
@@ -265,8 +265,8 @@ async function createManyConsults(clinicReference: User) {
   );
 
   const patient_11 = await createPatient(Genders.MALE);
-  startsAt = new Date("2023-05-02T15:00:00-00:00");
-  endsAt = new Date("2023-05-02T15:50:00-00:00");
+  startsAt = "2023-04-29 15:45";
+  endsAt = "2023-04-29 16:15";
   status = ConsultStatus.CANCELADO;
   await createConsult(
     PSIQUIATRA_06,

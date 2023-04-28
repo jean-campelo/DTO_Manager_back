@@ -70,8 +70,8 @@ model Consult {
   Patient   Patient       @relation(fields: [patientId], references: [id])
   clinicId  Int
   User      User          @relation(fields: [clinicId], references: [id])
-  startsAt  DateTime
-  endsAt    DateTime
+  startsAt  String        
+  endsAt    String
   status    ConsultStatus
 
   createdAt DateTime @default(now())
