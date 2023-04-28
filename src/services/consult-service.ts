@@ -1,4 +1,5 @@
 import { Consult } from "@prisma/client";
+import { ConsultStatus } from "@prisma/client";
 import consultRepository from "../repositories/consult-repository.js";
 import dayjs from "dayjs";
 
@@ -27,7 +28,25 @@ async function findConsultsByDate(date: string) {
     };
   });
 
-  return { consults };
+  const indicators = countIndicators(consults);
+
+  return { indicators, consults };
+}
+
+function countIndicators(consults: any) {
+  let consultsOpen = 0;
+  let consultsCanceled = 0;
+  let consultsDone = 0;
+  for (let i = 0; i < consults.length; i++) {
+    const consultStatus = consults[i].status;
+    consultStatus === ConsultStatus.CANCELADO
+      ? consultsCanceled++
+      : consultStatus !== ConsultStatus.REALIZADO
+      ? consultsOpen++
+      : consultsDone++;
+  }
+
+  return { consultsOpen, consultsCanceled, consultsDone };
 }
 
 export type DateConsultParams = Pick<Consult, "startsAt">;
