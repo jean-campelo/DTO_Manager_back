@@ -10,8 +10,16 @@ async function getConsults(req: Request, res: Response) {
   res.status(httpStatus.OK).send({ date, consultsData });
 }
 
+async function getConsultsWeek(req: Request, res: Response) {
+  const { date } = req.params;
+  const consultsWeek = await consultService.findConsultsWeek(date);
+
+  res.status(httpStatus.OK).send(consultsWeek);
+}
+
 const consultController = {
   getConsults,
+  getConsultsWeek,
 };
 
 export default consultController;

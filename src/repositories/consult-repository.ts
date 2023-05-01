@@ -10,6 +10,7 @@ async function getConsultByDate(date: string) {
     include: {
       Doctor: true,
       Patient: true,
+      User: true,
     },
     orderBy: {
       startsAt: "asc",
