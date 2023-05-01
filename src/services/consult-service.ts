@@ -93,11 +93,38 @@ async function findConsultsWeek(date: string) {
   return consultsWeek;
 }
 
+async function findConsultMonth(date: string) {
+  const initialDate = dayjs(date).startOf("M").format("YYYY-MM-DD");
+  const daysInMonth = dayjs(initialDate).daysInMonth();
+
+  let consultsMonth = [];
+
+  for (let i = 0; i < daysInMonth; i++) {
+    const daySelected = dayjs(initialDate).add(i, "day").format("YYYY-MM-DD");
+    const consultDay = await findConsultsByDate(daySelected);
+    const day = dayjs(daySelected).format("DD");
+    const month = dayjs(daySelected).format("MM");
+
+    consultsMonth = [
+      ...consultsMonth,
+      {
+        day,
+        month,
+        date: daySelected,
+        weekDay: translateWeekDay(daySelected),
+        consultDay,
+      },
+    ];
+  }
+  return consultsMonth;
+}
+
 export type DateConsultParams = Pick<Consult, "startsAt">;
 
 const consultService = {
   findConsultsByDate,
   findConsultsWeek,
+  findConsultMonth,
 };
 
 export default consultService;
