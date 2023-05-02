@@ -11,6 +11,7 @@
     "prisma:seed": "prisma db seed",
     "prisma:studio": "npx prisma studio",
     "prisma:migrate:dev": "npx prisma migrate dev",
+    "prisma:migration:run": "prisma migrate deploy",
     "prisma:reset": "npx prisma migrate reset"
   },
   "keywords": [],
